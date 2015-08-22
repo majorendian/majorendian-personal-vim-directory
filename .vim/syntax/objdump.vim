@@ -1,10 +1,3 @@
-"<OWNER> = Regents of the University of California
-"<YEAR> = 1998
-"
-"In the original BSD license, both occurrences of the phrase "COPYRIGHT HOLDERS AND CONTRIBUTORS" in the disclaimer read "REGENTS AND CONTRIBUTORS".
-"
-"Here is the license template:
-"
 "Copyright (c) 2015, Ernest Deák
 "All rights reserved.
 "
