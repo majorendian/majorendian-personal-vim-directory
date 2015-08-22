@@ -70,7 +70,6 @@ map +e :ToggleNERDTree<CR>
 map +vs :vne<CR>
 map +s :new<CR>
 
-set rtp+=~/.vim/bundle/Vundle.vim
 
 "Autosource .vimrc after write
 autocmd! bufwritepost ~/.vimrc source %
