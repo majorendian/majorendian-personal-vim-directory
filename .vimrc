@@ -2,8 +2,8 @@ set complete-=i
 if has("gui_running")
     "colorscheme luinnar
     "colorscheme tetragrammaton
-    "colorscheme summerfruit256
-    colorscheme newnoise
+    colorscheme summerfruit256
+    "colorscheme newnoise
     set guifont=Monospace\ 8
     set toolbar=
     set nu
@@ -50,7 +50,7 @@ au! BufRead,BufNewFile *.asm,*.inc,*.mac set filetype=nasm
 au! BufRead,BufNewFile *.objdump,*.disasm set filetype=objdump 
 au! BufRead,BufNewFile *.tt set filetype=html
 au! BufRead,BufNewFile *.gd source ~/.vim/colors/godot.vim
-
+"autocmd FileType python compiler pylint
 
 "Custom keymaps
 map <C-N> :tabnew<CR>
