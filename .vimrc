@@ -1,11 +1,12 @@
+set nocompatible
 set complete-=i
 if has("gui_running")
     "colorscheme luinnar
     "colorscheme tetragrammaton
-    colorscheme summerfruit256
-    "colorscheme newnoise
-    set guifont=Monospace\ 8
-    set toolbar=
+    "colorscheme summerfruit256
+    colorscheme newnoise
+    set guifont=Monospace\ 10
+    "set toolbar=
     set nu
 else
     colorscheme default
@@ -49,8 +50,11 @@ vnoremap <C-U> :s/    //<CR>
 au! BufRead,BufNewFile *.asm,*.inc,*.mac set filetype=nasm
 au! BufRead,BufNewFile *.objdump,*.disasm set filetype=objdump 
 au! BufRead,BufNewFile *.tt set filetype=html
+au! BufRead,BufNewFile *.pro set filetype=prolog
 au! BufRead,BufNewFile *.gd source ~/.vim/colors/godot.vim
+au! BufRead,BufNewFile *.pl,*.t map <S-F10> :! perl % <CR>
 "autocmd FileType python compiler pylint
+au! BufRead,BufNewFile *.rb imap <S-CR>    <CR><CR>end<Esc>-cc
 
 "Custom keymaps
 map <C-N> :tabnew<CR>
@@ -69,12 +73,15 @@ map +Q :q!<CR>
 map +e :ToggleNERDTree<CR>
 map +vs :vne<CR>
 map +s :new<CR>
+"map <A-F12> :ConqueTerm bash<CR>
+noremap <A-BACKSPACE> db
 
 
 "Autosource .vimrc after write
 autocmd! bufwritepost ~/.vimrc source %
 
 
+filetype on
 filetype plugin indent on
 
 
