@@ -1,3 +1,4 @@
+syntax on
 set nocompatible
 set complete-=i
 if has("gui_running")
@@ -41,8 +42,6 @@ inoremap <C-k> <Esc>:m .-2<CR>==gi
 inoremap <C-j> <Esc>:m .+1<CR>==gi
 vnoremap <C-k> :m '<-2<CR>gv=gv
 vnoremap <C-j> :m '>+1<CR>gv=gv
-map w= <C-W>=
-map wr <C-W>r
 
 vnoremap <C-U> :s/    //<CR>
 
@@ -60,11 +59,6 @@ au! BufRead,BufNewFile *.rb imap <S-CR>    <CR><CR>end<Esc>-cc
 map <C-N> :tabnew<CR>
 map <C-LEFT> :tabp<CR>
 map <C-RIGHT> :tabn<CR>
-map ws :w<CR>
-map wh <C-W><LEFT>
-map wl <C-W><RIGHT>
-map wj <C-W><DOWN>
-map wk <C-W><UP>
 map <S-l> :tabn<CR>
 map <S-h> :tabp<CR>
 map <F8> :ToggleNERDTree<CR>
