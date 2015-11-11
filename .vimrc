@@ -1,17 +1,6 @@
-syntax on
 set nocompatible
 set complete-=i
-if has("gui_running")
-    "colorscheme luinnar
-    "colorscheme tetragrammaton
-    "colorscheme summerfruit256
-    colorscheme newnoise
-    set guifont=Monospace\ 10
-    "set toolbar=
-    set nu
-else
-    colorscheme default
-endif
+syntax on
 let mapleader=","
 set autoindent
 set tabstop=4
@@ -26,13 +15,10 @@ map č $
 map é 0
 map š #
 
-"Bracket related completion
 
 
 "let g:acp_behaviorRubyOmniMethodLength = -1
-
-
-
+let g:ctrlp_working_path_mode=1 "ctrl+p search only from current working directory
 
 "Moving lines around
 
@@ -62,14 +48,25 @@ map <C-RIGHT> :tabn<CR>
 map <S-l> :tabn<CR>
 map <S-h> :tabp<CR>
 map <F8> :ToggleNERDTree<CR>
-map +q :q<CR>
-map +Q :q!<CR>
-map +e :ToggleNERDTree<CR>
-map +vs :vne<CR>
-map +s :new<CR>
-"map <A-F12> :ConqueTerm bash<CR>
-noremap <A-BACKSPACE> db
+map <F9> :TlistToggle<CR>
+map <Leader>q :q<CR>
+map <Leader>Q :q!<CR>
+map <Leader>e :ToggleNERDTree<CR>
+map <Leader>l :TlistToggle<CR>
+map <Leader>vs :vne<CR>
+map <Leader>s :new<CR>
+map <Leader>t :!date<CR>
+map <C-S-v> "+p
 
+",.-~ Common editor type behaviour that is pretty usefull
+inoremap <C-BACKSPACE> <ESC>dbxa
+inoremap <C-h> <ESC>dbxa
+
+"Search in tags with ctrl-g instead of ctrl-] which seems to be a bit broken
+"for me
+nmap <C-g> <ESC>:exe "tag " . expand("<cword>")<CR>
+inoremap <C-a> <ESC>0i
+inoremap <C-d> <ESC>$a
 
 "Autosource .vimrc after write
 autocmd! bufwritepost ~/.vimrc source %
@@ -87,3 +84,24 @@ function! CleverTab()
     endif
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
+
+set guioptions=""
+set guioptions+=i
+if has("gui_running")
+    colorscheme luinnar
+    "colorscheme tetragrammaton
+    "colorscheme summerfruit256
+    "colorscheme newnoise
+    set guifont=Monospace\ 10
+    set toolbar=""
+    set nu
+else
+    colorscheme default
+endif
+
+
+"For airline plugin
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#left_sep = ' '
+AirlineTheme lucius
