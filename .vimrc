@@ -18,7 +18,7 @@ map š #
 
 
 "let g:acp_behaviorRubyOmniMethodLength = -1
-let g:ctrlp_working_path_mode=1 "ctrl+p search only from current working directory
+let g:ctrlp_working_path_mode=0 "ctrl+p search only from current working directory
 
 "Moving lines around
 
@@ -33,7 +33,7 @@ vnoremap <C-U> :s/    //<CR>
 
 "Auxilary
 au! BufRead,BufNewFile *.asm,*.inc,*.mac set filetype=nasm
-au! BufRead,BufNewFile *.objdump,*.disasm set filetype=objdump 
+au! BufRead,BufNewFile *.objdump,*.disasm set filetype=objdump
 au! BufRead,BufNewFile *.tt set filetype=html
 au! BufRead,BufNewFile *.pro set filetype=prolog
 au! BufRead,BufNewFile *.gd source ~/.vim/colors/godot.vim
@@ -47,6 +47,8 @@ map <C-LEFT> :tabp<CR>
 map <C-RIGHT> :tabn<CR>
 map <S-l> :tabn<CR>
 map <S-h> :tabp<CR>
+map <A-h> :bp<CR>
+map <A-l> :bn<CR>
 map <F8> :ToggleNERDTree<CR>
 map <F9> :TlistToggle<CR>
 map <Leader>q :q<CR>
@@ -56,15 +58,17 @@ map <Leader>l :TlistToggle<CR>
 map <Leader>vs :vne<CR>
 map <Leader>s :new<CR>
 map <Leader>t :!date<CR>
-map <C-S-v> "+p
+map <Leader>p :b#<CR>
+map <Leader>b :CtrlPBuffer<CR>
+map <C-f> :exe "vimgrep /" . expand("<cword>") . "/" . "**/*." . expand("%:e")<CR>:copen<CR>
 
-",.-~ Common editor type behaviour that is pretty usefull
-inoremap <C-BACKSPACE> <ESC>dbxa
-inoremap <C-h> <ESC>dbxa
+"Common editor type behaviour that is pretty usefull
+imap <C-BACKSPACE> <ESC>dbxi
+imap <C-h> <ESC>dbxi
 
-"Search in tags with ctrl-g instead of ctrl-] which seems to be a bit broken
+"Search in tags with ctrl-b instead of ctrl-] which seems to be a bit broken
 "for me
-nmap <C-g> <ESC>:exe "tag " . expand("<cword>")<CR>
+nmap <C-b> <ESC>:exe "tag " . expand("<cword>")<CR>
 inoremap <C-a> <ESC>0i
 inoremap <C-d> <ESC>$a
 
@@ -88,9 +92,10 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 set guioptions=""
 set guioptions+=i
 if has("gui_running")
-    colorscheme luinnar
+    "colorscheme luinnar
     "colorscheme tetragrammaton
     "colorscheme summerfruit256
+    colorscheme github
     "colorscheme newnoise
     set guifont=Monospace\ 10
     set toolbar=""
@@ -99,9 +104,14 @@ else
     colorscheme default
 endif
 
+" Function to trim unwanted whitespace
+" and setup to link it to file writting
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
 
-"For airline plugin
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#left_sep = ' '
-AirlineTheme lucius
+au BufWritePre *.py :call TrimWhiteSpace()
+
+
+" Highlight unwanted whitespace
+au! BufRead *.py match ErrorMsg '\s\+$\|\t'
