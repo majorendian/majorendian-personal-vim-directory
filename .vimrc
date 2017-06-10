@@ -15,7 +15,12 @@ map č $
 map é 0
 map š #
 
+"other runtime paths
+"set rtp^="/home/tino/.opam/system/share/ocp-indent/vim"
+"set rtp+=/home/tino/.opam/system/share/ocp-index/vim
 
+"let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+"execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 "let g:acp_behaviorRubyOmniMethodLength = -1
 let g:ctrlp_working_path_mode=0 "ctrl+p search only from current working directory
@@ -32,12 +37,14 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-U> :s/    //<CR>
 
 "Auxilary
-au! BufRead,BufNewFile *.asm,*.inc,*.mac set filetype=nasm
+au! BufRead,BufNewFile *.nasm,*.asm,*.inc,*.mac set filetype=nasm
 au! BufRead,BufNewFile *.objdump,*.disasm set filetype=objdump
+au! BufRead,BufNewFile *.lisp,*.micl set filetype=lisp
 au! BufRead,BufNewFile *.tt set filetype=html
 au! BufRead,BufNewFile *.pro set filetype=prolog
-au! BufRead,BufNewFile *.gd source ~/.vim/colors/godot.vim
+au! BufRead,BufEnter,BufNewFile *.gd source ~/.vim/colors/godot.vim
 au! BufRead,BufNewFile *.pl,*.t map <S-F10> :! perl % <CR>
+au! BufRead,BufNewFile *.script colorscheme tetragrammaton
 "autocmd FileType python compiler pylint
 au! BufRead,BufNewFile *.rb imap <S-CR>    <CR><CR>end<Esc>-cc
 
@@ -58,12 +65,12 @@ map <Leader>l :TlistToggle<CR>
 map <Leader>vs :vne<CR>
 map <Leader>s :new<CR>
 map <Leader>t :!date<CR>
-map <Leader>p :b#<CR>
-map <Leader>b :CtrlPBuffer<CR>
+"map <Leader>p :b#<CR>
+map <C-h> :b#<CR>
 map <C-f> :exe "vimgrep /" . expand("<cword>") . "/" . "**/*." . expand("%:e")<CR>:copen<CR>
 
 "Common editor type behaviour that is pretty usefull
-imap <C-BACKSPACE> <ESC>dbxi
+imap <C-BACKSPACE> <ESC>dbxa
 imap <C-h> <ESC>dbxi
 
 "Search in tags with ctrl-b instead of ctrl-] which seems to be a bit broken
@@ -95,8 +102,11 @@ if has("gui_running")
     "colorscheme luinnar
     "colorscheme tetragrammaton
     "colorscheme summerfruit256
-    colorscheme github
+    "colorscheme github
+    colorscheme solarized
     "colorscheme newnoise
+    "colorscheme asmanian_blood
+    "colorscheme slate
     set guifont=Monospace\ 10
     set toolbar=""
     set nu
@@ -115,3 +125,13 @@ au BufWritePre *.py :call TrimWhiteSpace()
 
 " Highlight unwanted whitespace
 au! BufRead *.py match ErrorMsg '\s\+$\|\t'
+
+
+
+"let g:slimv_swank_cmd = '! xterm -e sbcl --load /home/tino/Lab/Lisp/start-swank.lisp &' 
+let g:slimv_impl="sbcl"
+let g:slimv_browser_cmd="chromium"
+let g:paredit_electric_return = 0
+
+set rtp+=~/Lab/VimExtensions/vim-slime
+let g:slime_target = "tmux"
